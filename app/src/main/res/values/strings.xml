@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">PacmanMinimalistic</string>
+    <string name="play_again">Play Again</string>
+    <string name="empty">" "</string>
+    <string name="fail">Fail!</string>
+    <string name="lost">Lost</string>
+    <string name="winner">Winner</string>
+    <string name="play">Play</string>
+    <string name="enemy">Enemy</string>
+</resources>

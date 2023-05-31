@@ -1,0 +1,110 @@
+[
+    {
+        "merged": "com.development.unique_pacman.app-merged_res-68:/mipmap-mdpi_ic_launcher.png.flat",
+        "source": "com.development.unique_pacman.app-main-70:/mipmap-mdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.development.unique_pacman.app-merged_res-68:/drawable_img.png.flat",
+        "source": "com.development.unique_pacman.app-main-70:/drawable/img.png"
+    },
+    {
+        "merged": "com.development.unique_pacman.app-merged_res-68:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.development.unique_pacman.app-main-70:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "com.development.unique_pacman.app-merged_res-68:/mipmap-mdpi_ic_launcher_foreground.png.flat",
+        "source": "com.development.unique_pacman.app-main-70:/mipmap-mdpi/ic_launcher_foreground.png"
+    },
+    {
+        "merged": "com.development.unique_pacman.app-merged_res-68:/mipmap-xxxhdpi_ic_launcher_round.png.flat",
+        "source": "com.development.unique_pacman.app-main-70:/mipmap-xxxhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.development.unique_pacman.app-merged_res-68:/drawable_pacman_1.png.flat",
+        "source": "com.development.unique_pacman.app-main-70:/drawable/pacman_1.png"
+    },
+    {
+        "merged": "com.development.unique_pacman.app-merged_res-68:/mipmap-xxhdpi_ic_launcher_foreground.png.flat",
+        "source": "com.development.unique_pacman.app-main-70:/mipmap-xxhdpi/ic_launcher_foreground.png"
+    },
+    {
+        "merged": "com.development.unique_pacman.app-merged_res-68:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.development.unique_pacman.app-main-70:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "com.development.unique_pacman.app-merged_res-68:/mipmap-hdpi_ic_launcher_foreground.png.flat",
+        "source": "com.development.unique_pacman.app-main-70:/mipmap-hdpi/ic_launcher_foreground.png"
+    },
+    {
+        "merged": "com.development.unique_pacman.app-merged_res-68:/mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "com.development.unique_pacman.app-main-70:/mipmap-xhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.development.unique_pacman.app-merged_res-68:/drawable_orange_enemy.png.flat",
+        "source": "com.development.unique_pacman.app-main-70:/drawable/orange_enemy.png"
+    },
+    {
+        "merged": "com.development.unique_pacman.app-merged_res-68:/drawable_ic_launcher_background.xml.flat",
+        "source": "com.development.unique_pacman.app-main-70:/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "com.development.unique_pacman.app-merged_res-68:/mipmap-mdpi_ic_launcher_round.png.flat",
+        "source": "com.development.unique_pacman.app-main-70:/mipmap-mdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.development.unique_pacman.app-merged_res-68:/mipmap-xxxhdpi_ic_launcher_foreground.png.flat",
+        "source": "com.development.unique_pacman.app-main-70:/mipmap-xxxhdpi/ic_launcher_foreground.png"
+    },
+    {
+        "merged": "com.development.unique_pacman.app-merged_res-68:/mipmap-hdpi_ic_launcher_round.png.flat",
+        "source": "com.development.unique_pacman.app-main-70:/mipmap-hdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.development.unique_pacman.app-merged_res-68:/drawable_pacman_logo.png.flat",
+        "source": "com.development.unique_pacman.app-main-70:/drawable/pacman_logo.png"
+    },
+    {
+        "merged": "com.development.unique_pacman.app-merged_res-68:/mipmap-xhdpi_ic_launcher_foreground.png.flat",
+        "source": "com.development.unique_pacman.app-main-70:/mipmap-xhdpi/ic_launcher_foreground.png"
+    },
+    {
+        "merged": "com.development.unique_pacman.app-merged_res-68:/mipmap-hdpi_ic_launcher.png.flat",
+        "source": "com.development.unique_pacman.app-main-70:/mipmap-hdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.development.unique_pacman.app-merged_res-68:/drawable_food.png.flat",
+        "source": "com.development.unique_pacman.app-main-70:/drawable/food.png"
+    },
+    {
+        "merged": "com.development.unique_pacman.app-merged_res-68:/drawable-v24_ic_launcher_foreground.xml.flat",
+        "source": "com.development.unique_pacman.app-main-70:/drawable-v24/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.development.unique_pacman.app-merged_res-68:/xml_data_extraction_rules.xml.flat",
+        "source": "com.development.unique_pacman.app-main-70:/xml/data_extraction_rules.xml"
+    },
+    {
+        "merged": "com.development.unique_pacman.app-merged_res-68:/mipmap-xhdpi_ic_launcher_round.png.flat",
+        "source": "com.development.unique_pacman.app-main-70:/mipmap-xhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.development.unique_pacman.app-merged_res-68:/mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "com.development.unique_pacman.app-main-70:/mipmap-xxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.development.unique_pacman.app-merged_res-68:/mipmap-xxhdpi_ic_launcher_round.png.flat",
+        "source": "com.development.unique_pacman.app-main-70:/mipmap-xxhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.development.unique_pacman.app-merged_res-68:/xml_backup_rules.xml.flat",
+        "source": "com.development.unique_pacman.app-main-70:/xml/backup_rules.xml"
+    },
+    {
+        "merged": "com.development.unique_pacman.app-merged_res-68:/drawable_enemy_red.png.flat",
+        "source": "com.development.unique_pacman.app-main-70:/drawable/enemy_red.png"
+    },
+    {
+        "merged": "com.development.unique_pacman.app-merged_res-68:/mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "com.development.unique_pacman.app-main-70:/mipmap-xxxhdpi/ic_launcher.png"
+    }
+]
