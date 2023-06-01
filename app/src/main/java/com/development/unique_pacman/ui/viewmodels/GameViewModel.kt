@@ -23,10 +23,17 @@ class GameViewModel : ViewModel() {
             direction = CharacterDirection.RIGHT
         )
     )
-    var enemy = MutableStateFlow(
+    var redEnemy = MutableStateFlow(
         Enemy(
             x = 1f,
             y = 1f,
+            enemyDirection = EnemyDirection.RIGHT
+        )
+    )
+    var orangeEnemy = MutableStateFlow(
+        Enemy(
+            x = 1f,
+            y = 100f,
             enemyDirection = EnemyDirection.RIGHT
         )
     )
@@ -41,21 +48,22 @@ class GameViewModel : ViewModel() {
         _gameState.value = _gameState.value.copy(isStarted = true)
         move()
         moveEnemy()
+        moveOrangeEnemy()
     }
 
     private fun initPacFoodList() {
         viewModelScope.launch(Dispatchers.Default) {
             pacFoodState.value.foodList.clear()
             val list = mutableListOf<PacFoodModel>()
-            for (i in 0 until FOOD_COUNTER) {
+            repeat(FOOD_COUNTER) {
                 val food = PacFoodModel(
                     xPos = Random(System.currentTimeMillis()).nextInt(
                         0,
-                        (SCREEN_WIDTH - 100).toInt()
+                        (SCREEN_WIDTH - 32).toInt()
                     ),
                     yPos = Random(System.currentTimeMillis()).nextInt(
                         0,
-                        (SCREEN_HEIGHT * 0.68).toInt()
+                        (SCREEN_HEIGHT * 0.7).toInt()
                     )
                 )
                 list.add(food)
@@ -83,7 +91,7 @@ class GameViewModel : ViewModel() {
         }
         if (pacman.value.y == 0f) {
             changePacmanDirection(CharacterDirection.BOTTOM)
-        } else if (pacman.value.y >= (SCREEN_HEIGHT * 0.65f)) {
+        } else if (pacman.value.y >= (SCREEN_HEIGHT * 0.7)) {
             changePacmanDirection(CharacterDirection.TOP)
         }
     }
@@ -116,7 +124,15 @@ class GameViewModel : ViewModel() {
     }
 
     private fun changeEnemyDirection(enemyDir: EnemyDirection) {
-        enemy.value = enemy.value.copy(enemyDirection = enemyDir)
+        if(redEnemy.value.enemyDirection != enemyDir) {
+            redEnemy.value = redEnemy.value.copy(enemyDirection = enemyDir)
+        }
+    }
+
+    private fun changeOrangeEnemyDirection(enemyDir: EnemyDirection) {
+        if(orangeEnemy.value.enemyDirection != enemyDir) {
+            orangeEnemy.value = orangeEnemy.value.copy(enemyDirection = enemyDir)
+        }
     }
 
     private fun moveEnemy() {
@@ -124,23 +140,22 @@ class GameViewModel : ViewModel() {
             while (_gameState.value.isStarted) {
                 delay(DELAY)
                 changeEnemyDirection(EnemyDirection.RIGHT)
-                while (enemy.value.x < 350f) {
+                while (redEnemy.value.x < 350f) {
                     moveEnemyOffset()
                     delay(DELAY)
                 }
-
                 changeEnemyDirection(EnemyDirection.BOTTOM)
-                while (enemy.value.y < (330f)) {
+                while (redEnemy.value.y < 330f) {
                     moveEnemyOffset()
                     delay(DELAY)
                 }
                 changeEnemyDirection(EnemyDirection.LEFT)
-                while (enemy.value.x > 20f) {
+                while (redEnemy.value.x > 20f) {
                     moveEnemyOffset()
                     delay(DELAY)
                 }
                 changeEnemyDirection(EnemyDirection.TOP)
-                while (enemy.value.y > 20f) {
+                while (redEnemy.value.y > 20f) {
                     moveEnemyOffset()
                     delay(DELAY)
                 }
@@ -148,16 +163,50 @@ class GameViewModel : ViewModel() {
         }
     }
 
+    private fun moveOrangeEnemy() {
+        viewModelScope.launch(Dispatchers.Default) {
+            while (_gameState.value.isStarted) {
+                delay(DELAY)
+                if (orangeEnemy.value.x < pacman.value.x) {
+                    changeOrangeEnemyDirection(EnemyDirection.RIGHT)
+                    moveOrangeEnemyOffset()
+//                    delay(DELAY)
+                } else {
+                    changeOrangeEnemyDirection(EnemyDirection.LEFT)
+                    moveOrangeEnemyOffset()
+//                    delay(DELAY)
+                }
+
+                if (orangeEnemy.value.y < pacman.value.y) {
+                    changeOrangeEnemyDirection(EnemyDirection.BOTTOM)
+                    moveOrangeEnemyOffset()
+//                    delay(DELAY)
+                } else {
+                    changeOrangeEnemyDirection(EnemyDirection.TOP)
+                    moveOrangeEnemyOffset()
+//                    delay(DELAY)
+                }
+            }
+        }
+    }
+
     private fun moveEnemyOffset() {
-        enemy.value = enemy.value.copy(
-            x = enemy.value.x + enemy.value.enemyDirection.offset.x*4,
-            y = enemy.value.y + enemy.value.enemyDirection.offset.y*4,
+        redEnemy.value = redEnemy.value.copy(
+            x = redEnemy.value.x + redEnemy.value.enemyDirection.offset.x*4,
+            y = redEnemy.value.y + redEnemy.value.enemyDirection.offset.y*4,
         )
     }
 
-    private fun checkCollision(): Boolean {
-        if ((pacman.value.x in enemy.value.x..enemy.value.x + PACMAN_SIZE || pacman.value.x + PACMAN_SIZE in enemy.value.x..enemy.value.x + PACMAN_SIZE)
-            && (pacman.value.y in enemy.value.y..enemy.value.y + PACMAN_SIZE || pacman.value.y + PACMAN_SIZE in enemy.value.y..enemy.value.y + PACMAN_SIZE)
+    private fun moveOrangeEnemyOffset() {
+        orangeEnemy.value = orangeEnemy.value.copy(
+            x = orangeEnemy.value.x + orangeEnemy.value.enemyDirection.offset.x*2,
+            y = orangeEnemy.value.y + orangeEnemy.value.enemyDirection.offset.y*2,
+        )
+    }
+
+    private fun checkCollision(enemy:Enemy): Boolean {
+        if ((pacman.value.x in enemy.x..enemy.x + PACMAN_SIZE || pacman.value.x + PACMAN_SIZE in enemy.x..enemy.x + PACMAN_SIZE)
+            && (pacman.value.y in enemy.y..enemy.y + PACMAN_SIZE || pacman.value.y + PACMAN_SIZE in enemy.y..enemy.y + PACMAN_SIZE)
         ) {
             return true
         }
@@ -169,7 +218,7 @@ class GameViewModel : ViewModel() {
             x = pacman.value.x + pacman.value.direction.offset.x * 4,
             y = pacman.value.y + pacman.value.direction.offset.y * 4
         )
-        if (checkCollision()) {
+        if (checkCollision(redEnemy.value) || checkCollision(orangeEnemy.value) ) {
             _gameState.value = _gameState.value.copy(defeated = true)
         }
     }

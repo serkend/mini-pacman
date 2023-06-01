@@ -36,19 +36,28 @@ fun DrawScope.drawPacman(pacman: Pacman, mouthAnimation: Float) {
     )
 }
 
-fun DrawScope.drawEnemy(enemy: Enemy) {
-    val context = MyApp.context
-    val bmOriginal = BitmapFactory.decodeResource(
-        context?.resources,
-        R.drawable.enemy_red
-    )
-    val resizedBM = Bitmap.createScaledBitmap(bmOriginal, ENEMY_SIZE, ENEMY_SIZE, false).asImageBitmap()
-    //val imageBitmap = ImageBitmap.
-    drawImage(resizedBM, topLeft = Offset(x = enemy.x, y = enemy.y))
-    Log.e("TAG", "drawEnemy: $enemy")
+fun DrawScope.drawEnemy(enemy: Enemy ,enemyBitmap : ImageBitmap) {
+    drawImage(enemyBitmap, topLeft = Offset(x = enemy.x, y = enemy.y))
+//    Log.e("TAG", "drawEnemy: $enemy")
 }
 
-fun DrawScope.drawBoard(pacFoodState: PacFood) {
+fun DrawScope.drawOrangeEnemy(enemy: Enemy,enemyBitmap:ImageBitmap) {
+    drawImage(enemyBitmap, topLeft = Offset(x = enemy.x, y = enemy.y))
+//    Log.e("TAG", "drawOrangeEnemy: $enemy")
+}
+
+fun DrawScope.drawFood(pacFood:PacFood) {
+    for (food in pacFood.foodList) {
+        drawOval(
+            color = PacmanYellow,
+            style = Fill,
+            topLeft = Offset(food.xPos.toFloat(), food.yPos.toFloat()),
+            size = Size(30f, 30f)
+        )
+    }
+}
+
+fun DrawScope.drawBoard() {
     val borderPath = Path()
     borderPath.apply {
         lineTo(size.width, 0f)
@@ -67,13 +76,13 @@ fun DrawScope.drawBoard(pacFoodState: PacFood) {
     }
 
     drawPath(path = enemySpawnPath, color = PacmanMazeColor, style = Stroke(12f))
-
-    for (food in pacFoodState.foodList) {
-        drawOval(
-            color = PacmanYellow,
-            style = Fill,
-            topLeft = Offset(food.xPos.toFloat(), food.yPos.toFloat()),
-            size = Size(30f, 30f)
-        )
-    }
+//
+//    for (food in pacFoodState.foodList) {
+//        drawOval(
+//            color = PacmanYellow,
+//            style = Fill,
+//            topLeft = Offset(food.xPos.toFloat(), food.yPos.toFloat()),
+//            size = Size(30f, 30f)
+//        )
+//    }
 }

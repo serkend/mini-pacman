@@ -1,12 +1,11 @@
 package com.development.unique_pacman.ui.screens
 
-import android.graphics.Rect
-import android.util.Log
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -17,25 +16,15 @@ import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
 //import androidx.compose.ui.geometry.Rect
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.*
-import androidx.compose.ui.graphics.drawscope.Fill
-import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.res.imageResource
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.development.unique_pacman.R
+import com.development.unique_pacman.ui.MyApp
 import com.development.unique_pacman.ui.entities.*
-import com.development.unique_pacman.ui.theme.PacmanMazeColor
 import com.development.unique_pacman.ui.theme.PacmanYellow
 import com.development.unique_pacman.ui.utils.*
 import com.development.unique_pacman.ui.viewmodels.GameViewModel
@@ -43,11 +32,15 @@ import com.development.unique_pacman.ui.viewmodels.GameViewModel
 @Composable
 fun Board(navController: NavController) {
     val viewModel: GameViewModel = viewModel()
+    val context = MyApp.context
+    val orangeBM = createOrangeBM(context)
+    val redBM = createRedBM(context)
     Column(
         modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally
     ) {
         val pacmanState = viewModel.pacman.collectAsState()
-        val enemyState = viewModel.enemy.collectAsState()
+        val enemyState = viewModel.redEnemy.collectAsState()
+        val orangeEnemyState = viewModel.orangeEnemy.collectAsState()
         val pacFood = viewModel.pacFoodState.collectAsState()
         val gameState = viewModel.gameState.collectAsState()
         if (gameState.value.defeated) {
@@ -58,7 +51,7 @@ fun Board(navController: NavController) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .fillMaxHeight(0.75f)
+                    .fillMaxHeight(COEF_RATIO_SCREEN)
             ) {
                 val infiniteTransition = rememberInfiniteTransition()
                 val mouthAnimation by infiniteTransition.animateFloat(
@@ -71,10 +64,12 @@ fun Board(navController: NavController) {
                 )
                 Canvas(modifier = Modifier.fillMaxSize()) {
                     drawPacman(pacmanState.value, mouthAnimation)
-                    drawBoard(pacFood.value)
-                    drawEnemy(enemyState.value)
+                    drawBoard()
+                    drawFood(pacFood.value)
+                    drawEnemy(enemyState.value, redBM)
+                    drawOrangeEnemy(orangeEnemyState.value, orangeBM)
                 }
-            //    DrawEnemy(enemyState.value)
+                //    DrawEnemy(enemyState.value)
             }
             DrawButtons { charDir ->
                 viewModel.changePacmanDirection(charDir)
@@ -85,7 +80,11 @@ fun Board(navController: NavController) {
 
 @Composable
 fun DrawButtons(onDirectionalChange: (CharacterDirection) -> Unit) {
-    Column(modifier = Modifier.fillMaxSize(),horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
         ButtonBox(
             image = Icons.Default.KeyboardArrowUp,
             charDirection = CharacterDirection.TOP
@@ -99,7 +98,7 @@ fun DrawButtons(onDirectionalChange: (CharacterDirection) -> Unit) {
             ) {
                 onDirectionalChange(it)
             }
-            Spacer(modifier = Modifier.width(54.dp))
+            Spacer(modifier = Modifier.width(BUTTON_SIZE))
             ButtonBox(
                 image = Icons.Default.KeyboardArrowRight,
                 charDirection = CharacterDirection.RIGHT
@@ -122,13 +121,30 @@ fun ButtonBox(
     charDirection: CharacterDirection,
     onDirectionalChange: (CharacterDirection) -> Unit
 ) {
-    val modifier = Modifier.size(54.dp)
+    val modifier = Modifier.size(BUTTON_SIZE)
     IconButton(
         modifier = modifier.background(PacmanYellow),
         onClick = { onDirectionalChange(charDirection) }
     ) {
         Icon(imageVector = image, contentDescription = null, tint = Color.Black)
     }
+}
+
+fun createRedBM(context: Context?): ImageBitmap {
+
+    val bmOriginal = BitmapFactory.decodeResource(
+        context?.resources,
+        R.drawable.enemy_red
+    )
+    return Bitmap.createScaledBitmap(bmOriginal, ENEMY_SIZE, ENEMY_SIZE, false).asImageBitmap()
+}
+
+fun createOrangeBM(context: Context?): ImageBitmap {
+    val bmOriginal = BitmapFactory.decodeResource(
+        context?.resources,
+        R.drawable.orange_enemy
+    )
+    return Bitmap.createScaledBitmap(bmOriginal, ENEMY_SIZE, ENEMY_SIZE, false).asImageBitmap()
 }
 
 //@Composable
