@@ -22,7 +22,7 @@ var FOOD_COUNTER = 100
 var PACMAN_SIZE = 70f
 var ENEMY_SIZE = 70
 
-val BUTTON_SIZE = 72.dp
+val BUTTON_SIZE = 64.dp
 
 const val initialOffsetX = 200f
 const val initialOffsetY = 200f
