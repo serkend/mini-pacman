@@ -131,13 +131,13 @@ fun ButtonBox(
     }
 }
 
-@Composable
-fun DrawEnemy(enemy: Enemy) {
-    Image(
-        bitmap = ImageBitmap.imageResource(id = R.drawable.enemy_red),
-        modifier = Modifier
-            .size(44.dp)
-            .offset(enemy.x.dp, enemy.y.dp),
-        contentDescription = stringResource(R.string.enemy)
-    )
-}
+//@Composable
+//fun DrawEnemy(enemy: Enemy) {
+//    Image(
+//        bitmap = ImageBitmap.imageResource(id = R.drawable.enemy_red),
+//        modifier = Modifier
+//            .size(44.dp)
+//            .offset(enemy.x.dp, enemy.y.dp),
+//        contentDescription = stringResource(R.string.enemy)
+//    )
+//}
